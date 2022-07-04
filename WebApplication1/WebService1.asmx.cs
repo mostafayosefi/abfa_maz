@@ -38,13 +38,15 @@ namespace WebApplication1
             public string fatherName { get; set; }
             public string codeMeli { get; set; }
             public int gender { get; set; }
- 
+            public string Sp { get; set; }
+
+
         }
 
 
 
         [WebMethod]
-        public DataSet estelam(string NationalCode, string Dateofbirth )
+        public DataSet estelam(string NationalCode, string Dateofbirth, string DateSp )
         {
 
 
@@ -55,6 +57,10 @@ namespace WebApplication1
             dt.Columns.Add("family");
             dt.Columns.Add("fatherName");
             dt.Columns.Add("gender"); 
+            dt.Columns.Add("Sp");
+
+            string[] split1 = DateSp.Split('/');
+
 
             try
             {
@@ -94,6 +100,7 @@ namespace WebApplication1
                     dr["family"] = item.family;
                     dr["fatherName"] = item.fatherName;
                     dr["gender"] = item.gender; 
+                    dr["Sp"] = split1[0]; 
                     dt.Rows.Add(dr);
 
                     dr["code"] = result.ToString();
@@ -112,6 +119,7 @@ namespace WebApplication1
             {
                 DataRow dr = dt.NewRow();
                 dr["code"] = ex.Message;
+                dr["Sp"] = split1[0];
                 dt.Rows.Add(dr);
                 ds.Tables.Add(dt);
             }
